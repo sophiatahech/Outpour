@@ -1,40 +1,65 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Switch, Image, StyleSheet } from 'react-native';
 import PageTitle from './PageTitle';
 
-const settings = () => {
+const Settings = () => {
+  const [darkMode, setDarkMode] = useState(false);
+  const [notifications, setNotifications] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    // You can perform additional actions when Dark Mode is toggled
+  };
+
+  const toggleNotifications = () => {
+    setNotifications(!notifications);
+    // You can perform additional actions when Notifications are toggled
+  };
+
+  const renderInput = (label, value, onToggle) => {
+    if (label === 'Dark Mode' || label === 'Notifications') {
+      return (
+        <View style={styles.inputBox}>
+          <Text style={styles.inputLabel}>{label}</Text>
+          <Switch
+            value={value}
+            onValueChange={onToggle}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            thumbColor={value ? '#f5dd4b' : '#f4f3f4'}
+          />
+        </View>
+      );
+    } else if (label === 'Log Out') {
+      return (
+        <TouchableOpacity style={styles.inputBox}>
+          <Text style={styles.inputLabel}>{label}</Text>
+          <Image source={require('./assets/logout.png')} style={styles.logoutIcon} />
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <View style={styles.inputBox}>
+          <Text style={styles.inputLabel}>{label}</Text>
+        </View>
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Header with Heading */}
       <View>
-      <PageTitle title="Settings" showBackButton={false} backgroundColor="#BE4621" />
-    </View>
-    
-    <View style={styles.container}>
-      {/* Header with Back Button */}
-      <TouchableOpacity onPress={() => console.log('Go back')}>
-        <Text style={styles.backButton}>&lt;Back</Text>
-      </TouchableOpacity>
+        <PageTitle title="Settings" showBackButton={false} backgroundColor="#BE4621" />
+      </View>
 
       {/* Stacked Input Boxes */}
       <View style={styles.inputContainer}>
-        {renderInput('Location')}
-        {renderInput('Notifications')}
-        {renderInput('Language')}
-        {renderInput('Dark Mode')}
-        {renderInput('Log Out')}
+        {renderInput('Location', false, () => {})} {/* Placeholder for Location */}
+        {renderInput('Notifications', notifications, toggleNotifications)}
+        {renderInput('Language', false, () => {})} {/* Placeholder for Language */}
+        {renderInput('Dark Mode', darkMode, toggleDarkMode)}
+        {renderInput('Log Out', false, () => {})} {/* Placeholder for Log Out */}
       </View>
-
-      </View>
-    
-    </View>
-  );
-};
-
-const renderInput = (label) => {
-  return (
-    <View style={styles.inputBox}>
-      <Text style={styles.inputText}>{label}</Text>
     </View>
   );
 };
@@ -55,23 +80,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 15,
-  },
-  labelText: {
-    fontSize: 12,
-    color: 'white',
-    marginBottom: 5,
-  },
-  inputText: {
-    height: 40,
+    borderBottomWidth: 1,
     borderColor: 'gray',
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: 'black',
+    paddingBottom: 10,
+  },
+  inputLabel: {
+    fontSize: 16,
     color: 'white',
+  },
+  logoutIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
   },
   updateButton: {
-    backgroundColor: '#CADBFC',
+    backgroundColor: 'black',
     padding: 15,
     alignItems: 'center',
     borderRadius: 5,
@@ -83,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default settings;
+export default Settings;
