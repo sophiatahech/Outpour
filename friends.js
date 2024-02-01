@@ -11,18 +11,10 @@ const Friends = () => {
       <PageTitle title="Friends" showBackButton={false} backgroundColor="#BE4621" />
     </View>
     <View style={styles.container}>
-      {/* Header with Back Button */}
-      <TouchableOpacity onPress={() => console.log('Go back')}>
-        <Text style={styles.backButton}>&lt;Back</Text>
-      </TouchableOpacity>
+      
 
       {/* List of Friends */}
       <View style={styles.friendList}>
-        {renderFriend('Joana Summit', require('./assets/friend1.jpg'))}
-        {renderFriend('Chris Lake', require('./assets/friend2.jpg'))}
-        {renderFriend('Max Stelar', require('./assets/friend3.jpg'))}
-        {renderFriend('Denniz Cruz', require('./assets/friend4.jpg'))}
-        {renderFriend('Davina Guetta', require('./assets/friend5.jpg'))}
         {renderFriend('Joana Summit', require('./assets/friend1.jpg'))}
         {renderFriend('Chris Lake', require('./assets/friend2.jpg'))}
         {renderFriend('Max Stelar', require('./assets/friend3.jpg'))}
